@@ -1,26 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-@if (Auth::check())
-<div class="row">
-  <div class="row">
-    <aside class="col-sm-4">
-      @include('users.card')
-    </aside>
-    <div class="col-sm-8">
-      @include('users.navtabs')
-      @if (Auth::id() == $user->id)
+  @if (Auth::check())
+    <div class="row">
+      <aside class="col-sm-4">
+        @include('users.card')
+      </aside>
+      <div class="col-sm-8">
         @include('microposts.form')
-      @endif
-      @include('microposts.microposts')
+        @include('microposts.microposts')
+      </div>
+    </div> 
+  @else
+    <div class="center jumbotron">
+      <div class="text-center">
+        <h1>Welcome to the Microposts</h1>
+        {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
+      </div>
     </div>
-  </div>
-@else
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to the Microposts</h1>
-    {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
-  </div>
-</div>
-@endif
+  @endif
 @endsection
